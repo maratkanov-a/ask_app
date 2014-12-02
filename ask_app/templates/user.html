@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block data %}
+    <table class="table table-hover" data-height="400" data-row-style="rowStyle">
+    <thead>
+    <tr>
+        <th class="col-md-2">Имя</th>
+        <th class="col-md-6">Прозвище</th>
+        <th class="col-md-4">Почта</th>
+    </tr>
+    <tr class="active">
+        <td class="col-md-2">{{ user.username}}</td>
+        <td class="col-md-4">{{ user.first_name }}</td>
+        <td class="col-md-4">{{ user.email}}</td>
+    </tr>
+    </thead>
+</table>
+    {% if questions.count == 0 %}
+        <button class="btn btn-primary userpage-question disabled" >Всего воросов {{ questions.count }}</button>
+        {% else %}
+            <button class="btn btn-primary userpage-question" >Всего воросов {{ questions.count }}</button>
+    {% endif %}
+    {% if answers.count == 0 %}
+        <button class="btn btn-success userpage-ans disabled">Всего ответов {{ answers.count }}</button>
+        {% else %}
+        <button class="btn btn-success userpage-ans">Всего ответов {{ answers.count }}</button>
+    {% endif %}
+
+    {% for question in questions %}
+        <div style="margin-top:10px; " class="panel panel-primary js-user-question">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            {{ question.label}}
+                        </div>
+                    </div>
+                    <div class="panel panel-body">
+                        {{ question.text }}
+                        <br>
+                        <div class="label label-primary">
+                            {{ question.text_author }}
+                        </div>
+                    </div>
+                </div>
+    {% endfor %}
+
+    <br>
+
+    {% for ans in answers %}
+        <div style="margin-top: 5px;" class="js-user-ans">
+              <div  class="alert alert-success">{{ ans.answer_text }}
+                <br>
+                <div class="label label-success"> {{ ans.ans_author }}</div>
+              </div>
+                     <div class="num_rate" style="margin-bottom: 10px;" align="right">
+                             <div class="label label-info">Рейтинг: {{ ans.rating }} </div>
+                     </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

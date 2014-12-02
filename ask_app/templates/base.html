@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta content="width=device-width, install-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <style type="text/css"> </style>
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.css">
+
+    <title>{% block header %}Ask app{% endblock %} </title>
+</head>
+
+<body style="padding-top: 70px;">
+        <div class="container">
+            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href = "/home">Ask app</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            {% if user.is_authenticated %}
+                            <li class="alert-info dropdown" >
+                                <a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"  >Привет, {{ user.first_name }}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
+                                    <li role="presentation">
+                                        <a href="/user/">Мой профиль</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a  href="/create/">Задать вопрос</a>
+{#                                        <a class="js-create-question" href="#">Задать вопрос</a>#}
+                                    </li>
+{#                                    <li role="presentation">#}
+{#                                        <a href="/myquestions">Мои вопросы</a>#}
+{#                                    </li>#}
+                                    <li role="presentation">
+                                        <a href="/newpas/">Сменить пароль</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <form class="navbar-form js-search" method="get"> {% csrf_token %}
+                                <input class="form-control js-search-text" type="search" placeholder="Найти">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </form>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="active">
+                                <a href="/regme">Зарегистрируйся</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="navbar-text">
+                                {{ user.email }}
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a href="/home">Домой</a>
+                            </li>
+                             <li>
+                                <a href="/login">Войти</a>
+                            </li>
+                            <li>
+                                <a href="/logout">Выйти</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% block data %}
+        {% endblock %}
+        </div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{#<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>#}
+    <script src="../static/js/bootstrap.js"></script>
+    <script src="../static/js/mine.js"></script>
+</body>
+</html>

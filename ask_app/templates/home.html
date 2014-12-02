@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block data %}
+
+        {% for contact in contacts %}
+            <div class="js-all-page">
+                <div  style="margin-top:10px; " class="panel panel-primary js-question" >
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                {{ contact.label}}
+                            </div>
+                        </div>
+                        <div class="panel panel-body">
+                            {{ contact.text }}
+                            <br>
+                            <div class="label label-primary">
+                                {{ contact.text_author }}
+                            </div>
+                        </div>
+                 </div>
+                {# Скрытое поле ответа#}
+            {% if user.is_authenticated %}
+                <div class="js-answer">
+                    <form action="" method="POST" class="form-ans" style="margin-top: 10px;"> {% csrf_token %}
+                        <textarea class="js-text-in-area"  name="ans_text" placeholder="Введите ваш ответ" cols="80" rows="5" maxlength="100"></textarea>
+                        <br>
+                        <input name="question_id" hidden="true" value="{{ contact.id }}" >
+                        <button  class="btn btn-primary js-answer-btn">Ответить!</button>
+                     </form>
+                </div>
+            {% endif %}
+
+            <br>
+               {% if contact.answers.exists %}
+                    <div class="add-ans">Ответы:
+                        {% for ans in contact.answers %}
+                          <div  class="alert alert-success">{{ ans }}
+                          <br>
+                            <div class="label label-success"> {{ ans.ans_author }}</div>
+                          </div>
+
+                             {% if user.is_authenticated %}
+
+                            <form action="" class="rating" method="POST">  {% csrf_token %}
+                                 <div class="num_rate" style="margin-bottom: 10px;" align="right">
+                                        <button class="btn btn-danger btn-sm js-minus " name="vote" value="-1" data-id="{{ ans.id }}"> - </button>
+                                         <div class="update-me">{{ ans.rating }}</div>
+                                        <button class="btn btn-success btn-sm js-plus" name="vote" value="1" data-id="{{ ans.id }}">+</button>
+                                 </div>
+                            </form>
+
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+               {% endif %}
+            </div>
+            {# Скрытое поле нового ответа#}
+            <div class="alert alert-warning js-new-ans">
+                <div class="js-for-text"></div>
+                <div class="label label-warning">
+                    {{ user.username }}
+                </div>
+            </div>
+       {% endfor %}
+
+    <nav class="paginator">
+        <ul class="pager">
+                <li>
+                    {% if contacts.has_previous %}
+                        <a href="?page={{ contacts.previous_page_number }}">Предыдущая страница</a>
+                    {% endif %}
+                </li>
+
+                <li>
+                    {% if contacts.has_next %}
+                        <a href="?page={{ contacts.next_page_number }}">Следущая страница</a>
+                    {% endif %}
+                </li>
+        </ul>
+    </nav>
+<div class="for-test">
+
+</div>
+{% endblock %}

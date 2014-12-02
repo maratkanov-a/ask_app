@@ -1,0 +1,17 @@
+
+    {% for question in questions %}
+        <div style="margin-top:10px; " class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            {{ question.label}}
+                        </div>
+                    </div>
+                    <div class="panel panel-body">
+                        {{ question.text }}
+                        <br>
+                        <div class="label label-primary">
+                            {{ question.text_author }}
+                        </div>
+                    </div>
+                </div>
+    {% endfor %}
