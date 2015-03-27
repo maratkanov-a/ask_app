@@ -1,8 +1,5 @@
-/**
- * Created by sashok on 03.11.14.
- */
 $(document).ready(function () {
-
+//стандартный код инициализации запросов в ajax
     $.ajaxSetup({
      beforeSend: function(xhr, settings) {
          function getCookie(name) {
@@ -11,7 +8,6 @@ $(document).ready(function () {
                  var cookies = document.cookie.split(';');
                  for (var i = 0; i < cookies.length; i++) {
                      var cookie = jQuery.trim(cookies[i]);
-                     // Does this cookie string begin with the name we want?
                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                      break;
@@ -25,17 +21,21 @@ $(document).ready(function () {
              xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
          }
      }
-});
-
+    });
+//-----------------------------------------------------------------------------------------------------
+// скрываем элементы, которые потом вызовем
     $('.js-user-question').hide();
     $('.js-user-ans').hide();
     $('.js-new-ans').hide();
     var answer = $('.js-answer');
+//---------------------------------------------------------------------------------------------------
+// показываем поле ответа по нажатию
     answer.hide();
     $('.js-question').on('click', function(){
         $(this).next().toggle('slow');
     });
-
+//---------------------------------------------------------------------------------------------------
+//после набора текста в скрытом поле, по нажтию на кнопку ответить, отправляем POST запрос на сервер
     answer.on('submit', function(){
         var elem = $(this);
         $.ajax('/home/',{
@@ -46,16 +46,14 @@ $(document).ready(function () {
                 var text = elem.parent().find('.js-text-in-area').val();
                 el.children('.js-for-text').html(text);
                 el.show('slow')
-            },
-            error: function(){
-                $('.for-test').html('BAD');
             }
 
         });
         answer.hide('slow');
         return false;
     });
-
+//---------------------------------------------------------------------------------------------------
+//по нажатию на кнопки + или - отправляем запрос и меняем рейтинг на HTML странице
     $('.rating').on('submit', function(){return false;});
     $('.js-minus, .js-plus').on('click', function(e){
 
@@ -84,40 +82,27 @@ $(document).ready(function () {
             }
         });
     });
-
+//---------------------------------------------------------------------------------------------------
+//чистим всю страницу и вставляем туда задание вопроса
     $('.js-create-question').on('click', function(){
         $('.js-all-page').html('');
         $('.paginator').html('');
         $('.for-test').load('/create/');
     });
-
-//    $('.js-create-question').on('submit', function(e){
-//        var elem = $(this);
-//        e.preventDefault();
-//        $.ajax('/create/',{
-//            type: 'POST',
-//            dataType: 'text',
-//            data: elem.serialize(),
-////            data: {question_label: elem.find(), question_text: elem.find('.form-control').val()},
-//            success: function(){
-//                $('.for-test-create').html('GOOD');
-//            },
-//            error: function(){
-//                $('.for-test-create').html('BAD');
-//            }
-//        });
-//    return false;
-//    });
-
+//---------------------------------------------------------------------------------------------------
+//на странице пользователя по нажтию на кнопку показываем все его вопросы
     $('.userpage-question').on('click', function(){
         $('.js-user-question').toggle('slow');
         return false;
     });
+//---------------------------------------------------------------------------------------------------
+//на странице пользователя по нажтию на кнопку показываем все его ответы
     $('.userpage-ans').on('click', function(){
         $('.js-user-ans').toggle('slow');
         return false;
     });
-
+//---------------------------------------------------------------------------------------------------
+//чистим всю страницу и туда вставляем ответы, удовлетворяющие поиску
     $('.js-search').on('keyup', function(e){
         e.preventDefault();
         $('.js-all-page').html('');
@@ -128,12 +113,9 @@ $(document).ready(function () {
             dataType:'text',
             data: {text: elem.val()},
             success: function(data){
-//                var el = elem.val();
-//                var page = xmlhttp.open("GET",'/forsearch/'+'?text='+el ,true);
                 $('.for-test').html(data);
             }
         });
     });
-
-
+//---------------------------------------------------------------------------------------------------
 });

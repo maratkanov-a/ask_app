@@ -15,18 +15,18 @@
     </thead>
 </table>
     {% if questions.count == 0 %}
-        <button class="btn btn-primary userpage-question disabled" >Всего воросов {{ questions.count }}</button>
+        <button class="btn btn-default userpage-question disabled" >Всего воросов {{ questions.count }}</button>
         {% else %}
-            <button class="btn btn-primary userpage-question" >Всего воросов {{ questions.count }}</button>
+            <button class="btn btn-default userpage-question" >Всего воросов {{ questions.count }}</button>
     {% endif %}
     {% if answers.count == 0 %}
-        <button class="btn btn-success userpage-ans disabled">Всего ответов {{ answers.count }}</button>
+        <button class="btn btn-default userpage-ans disabled">Всего ответов {{ answers.count }}</button>
         {% else %}
-        <button class="btn btn-success userpage-ans">Всего ответов {{ answers.count }}</button>
+        <button class="btn btn-default userpage-ans">Всего ответов {{ answers.count }}</button>
     {% endif %}
 
     {% for question in questions %}
-        <div style="margin-top:10px; " class="panel panel-primary js-user-question">
+        <div style="margin-top:10px; " class="panel panel-default js-user-question">
                     <div class="panel-heading">
                         <div class="panel-title">
                             {{ question.label}}
@@ -46,7 +46,7 @@
 
     {% for ans in answers %}
         <div style="margin-top: 5px;" class="js-user-ans">
-              <div  class="alert alert-success">{{ ans.answer_text }}
+              <div  class="well">{{ ans.answer_text }}
                 <br>
                 <div class="label label-success"> {{ ans.ans_author }}</div>
               </div>

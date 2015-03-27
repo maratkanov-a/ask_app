@@ -3,7 +3,7 @@
 
         {% for contact in contacts %}
             <div class="js-all-page">
-                <div  style="margin-top:10px; " class="panel panel-primary js-question" >
+                <div  style="margin-top:10px; " class="panel panel-default js-question" >
                         <div class="panel-heading">
                             <div class="panel-title">
                                 {{ contact.label}}
@@ -24,7 +24,7 @@
                         <textarea class="js-text-in-area"  name="ans_text" placeholder="Введите ваш ответ" cols="80" rows="5" maxlength="100"></textarea>
                         <br>
                         <input name="question_id" hidden="true" value="{{ contact.id }}" >
-                        <button  class="btn btn-primary js-answer-btn">Ответить!</button>
+                        <button  class="btn btn-default js-answer-btn">Ответить!</button>
                      </form>
                 </div>
             {% endif %}
@@ -33,7 +33,7 @@
                {% if contact.answers.exists %}
                     <div class="add-ans">Ответы:
                         {% for ans in contact.answers %}
-                          <div  class="alert alert-success">{{ ans }}
+                          <div  class="well">{{ ans }}
                           <br>
                             <div class="label label-success"> {{ ans.ans_author }}</div>
                           </div>
@@ -42,9 +42,9 @@
 
                             <form action="" class="rating" method="POST">  {% csrf_token %}
                                  <div class="num_rate" style="margin-bottom: 10px;" align="right">
-                                        <button class="btn btn-danger btn-sm js-minus " name="vote" value="-1" data-id="{{ ans.id }}"> - </button>
+                                        <button class="btn btn-default btn-sm js-minus " name="vote" value="-1" data-id="{{ ans.id }}"> - </button>
                                          <div class="update-me">{{ ans.rating }}</div>
-                                        <button class="btn btn-success btn-sm js-plus" name="vote" value="1" data-id="{{ ans.id }}">+</button>
+                                        <button class="btn btn-default btn-sm js-plus" name="vote" value="1" data-id="{{ ans.id }}">+</button>
                                  </div>
                             </form>
 

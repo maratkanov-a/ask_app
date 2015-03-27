@@ -1,9 +1,6 @@
-__author__ = 'sashok'
-
 from django import forms
 from django.contrib.auth.models import User
 from ask_app.models import Question, Answer
-from django.core import validators
 from django.core.validators import MaxLengthValidator
 
 

@@ -4992,9 +4992,8 @@ a.list-group-item-danger.active:focus {
   margin-bottom: 0;
   line-height: 1.3;
 }
-.panel:hover {      /*Я ЗАЛЕЗ СЮДА СВОИМИ РУЧИЩАМИ hover не было и margin*/
+.panel {      /*Я ЗАЛЕЗ СЮДА СВОИМИ РУЧИЩАМИ hover не было и margin*/
   /*margin-bottom: 20px;*/
-  background-color: #f5e79e;
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
